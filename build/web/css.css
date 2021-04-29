@@ -1,0 +1,73 @@
+
+/* 
+    Created on : 19 janv. 2021, 09:53:29
+    Author     : randysemedorodrigues
+*/
+body {
+  background-image: url("images/home-back.jpg");
+  background-repeat: no-repeat;
+
+  margin:0;
+  padding:0;
+  background: url("images/home-back.jpg") no-repeat center fixed; 
+  -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+  background-size: cover; /* version standardisée */
+}
+
+
+.img-back{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /*border: 1px solid red;*/
+}
+
+.input-group{
+    position: absolute;
+    width: 250px;
+    height: 22px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.input-group .input{
+    /*border: 2px solid black;*/
+    outline: none;
+    text-align: center;
+    padding: 10px;
+    width: 80%;
+    height: 150%;
+    display: block;
+    margin: 0 10% 60px 10%;
+    font-size: 15px;
+    border: none;
+    background-color: white;
+    border-bottom: 1px solid grey;
+}
+.input-group .input .input-password{
+    width: 100%;
+    height: 100%;
+    display: block;
+    margin-bottom: 60px;
+}
+
+.input-group .input-valider{
+    margin-top: -25px;
+    border-bottom: none;
+    border-radius: 100px;
+    background-color: #99ccff;
+}
+
+.input-group .input-valider:hover{
+    background-color: #99ccff;
+    color: white;
+}
+
+
+p{
+    
+}
+
