@@ -87,7 +87,7 @@ public class VisiteDAO {
     public Visiteur creatVisiteur(String login) throws SQLException{
         rs = smt.executeQuery("select * from visiteur where vis_login =" 
                 +"'"+login+"'");
-        rs.first();
+        rs.next();
         visiteur = new Visiteur(rs.getString("vis_id"), 
                 rs.getString("vis_nom"),
                 rs.getString("vis_prenom"),

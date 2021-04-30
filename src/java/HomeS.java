@@ -1,15 +1,14 @@
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
-import Modele.VisiteDAO;
 import java.io.IOException;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,8 +33,10 @@ public class HomeS extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher("/WEB-INF/HomeJ.jsp").forward(request, response);
-    }
+        response.setContentType("text/html;charset=UTF-8");
+       
+        }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -49,7 +50,7 @@ public class HomeS extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/HomeJ.jsp").forward(request, response);
     }
 
     /**
@@ -60,14 +61,22 @@ public class HomeS extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    //private Clt Clt ;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+     /*   String choix = (String)request.getParameter("choix");
+         if (choix.equals("saisir")){
+             this.getServletContext().getRequestDispatcher("/WEB-INF/SaisirJ.jsp").forward(request, response);
+         } else if(choix.equals("modifier")){
+             this.getServletContext().getRequestDispatcher("/WEB-INF/ModifierJ.jsp").forward(request, response);
+         }
+         else{
+             this.getServletContext().getRequestDispatcher("/ConsulterS.jsp").forward(request, response);
+         }
         
-        
-    }
+        */
+         
+        }
 
     /**
      * Returns a short description of the servlet.
@@ -78,6 +87,6 @@ public class HomeS extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
 
 }
+

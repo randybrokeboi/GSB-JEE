@@ -11,7 +11,10 @@ package Modele;
  */
 public class Medecin implements Comparable<Medecin>{
     private String mNom, mPrenom, mAdresse, mTel, mSpecialite, mDept;
-    public Medecin(String nom,String prenom,String adresse, String tel,String specialite,String dept) {
+    private int mId;
+    
+    public Medecin(int id, String nom,String prenom,String adresse, String tel,String specialite,String dept) {
+        mId = id;
         mNom = nom;
         mPrenom = prenom;
         mAdresse = adresse;
@@ -19,7 +22,19 @@ public class Medecin implements Comparable<Medecin>{
         mSpecialite = specialite;
         mDept = dept;
     }
+    public Medecin() {
+    }
 
+    public int getmId() {
+        return mId;
+    }
+
+    public void setmId(int mId) {
+        this.mId = mId;
+    }
+    
+    
+    
     public void setmNom(String mNom) {
         this.mNom = mNom;
     }
@@ -49,9 +64,7 @@ public class Medecin implements Comparable<Medecin>{
 
        return mNom + " , " + mPrenom + " ";
     }
-    public Medecin() {
-
-    }
+ 
     public Medecin getLardon(int num) {
         return this;
     }

@@ -11,6 +11,8 @@ import java.sql.DriverManager;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -18,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -68,27 +71,29 @@ public class ConnexionS extends HttpServlet {
             throws ServletException, IOException {
         
         
-        String login = (String)request.getParameter("login");
-        String mdp = (String)request.getParameter("mdp");
-        VisiteDAO visit = new VisiteDAO();
-        Boolean Verif = visit.verifUser(login, mdp);
-        if (Verif == true){
-
-            System.out.println("c'est " + Verif);
-            ArrayList info = visit.infoIdent(login, mdp);
-            request.setAttribute("info", " "+info);
-            request.setAttribute("rep", "concordent avec ceux present");
-            this.getServletContext().getRequestDispatcher("/WEB-INF/HomeJ.jsp").forward(request, response);
-
+        try {
+            String login = (String)request.getParameter("login");
+            String mdp = (String)request.getParameter("mdp");
+            VisiteDAO visit = new VisiteDAO();
+            Boolean Verif = visit.verifUser(login, mdp);
+            if (Verif == true){
+                HttpSession session = request.getSession(true);
+                
+                session.setAttribute("visi", visit.creatVisiteur(login));
+                this.getServletContext().getRequestDispatcher("/WEB-INF/HomeJ.jsp").forward(request, response);
+                
+            }
+            else{
+                
+                System.out.println("c'est " + Verif);
+                request.setAttribute("info", "");
+                request.setAttribute("rep", "ne concordent avec aucun de ceux present");
+                this.getServletContext().getRequestDispatcher("/WEB-INF/ConnexionJ.jsp").forward(request, response);
+            }
+            System.out.println("identifiant:: "+login+ " "+mdp);
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnexionS.class.getName()).log(Level.SEVERE, null, ex);
         }
-        else{
-
-            System.out.println("c'est " + Verif);
-            request.setAttribute("info", "");
-            request.setAttribute("rep", "ne concordent avec aucun de ceux present");
-            this.getServletContext().getRequestDispatcher("/WEB-INF/HomeJ.jsp").forward(request, response);
-        }
-        System.out.println("identifiant:: "+login+ " "+mdp);
     }
 
     /**

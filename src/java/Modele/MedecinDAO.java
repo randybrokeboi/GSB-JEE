@@ -19,7 +19,7 @@ public class MedecinDAO {
   private Statement smt = null;
   private  Medecin unM;
   private ResultSet rs;
-  private ArrayList<Medecin> medecins = new ArrayList<>();
+  
 
  
     public MedecinDAO() throws SQLException {
@@ -30,28 +30,14 @@ public class MedecinDAO {
              smt = dao.getStatement();
     }
    
-    public ArrayList<Medecin> tousLesMedecins(){
-        
-        //récupère le résultat de la requête dans un resultSet;
-        try {
-            rs = smt.executeQuery("SELECT * FROM medecin");
-        //parcours le ResultSet
-            
-             while(rs.next()){
-                 //instancie un médecin pour chaque occurence du ResultSet
-               
-                 Medecin med = new Medecin(rs.getString("med_nom"), rs.getString("med_prenom"),rs.getString("med_adresse"), rs.getString("med_tel"),rs.getString("med_specialitecomplementaire"),rs.getString("med_departement"));
-                 
-                 //Ajoute l'objet Medecin dans l'ArrayList
-                 medecins.add(med);
-                 
-            }
-            rs.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+    public ArrayList<Medecin> tousLesMedecins() throws SQLException{
+         ArrayList<Medecin> medecins = new ArrayList();
+        rs = smt.executeQuery("SELECT * FROM medecin");
+        while(rs.next()){
+            medecins.add(new Medecin(rs.getInt("med_id"),rs.getString("med_nom"), 
+                    rs.getString("med_prenom"),rs.getString("med_adresse"), 
+                    rs.getString("med_tel"),rs.getString("med_specialitecomplementaire"),rs.getString("med_departement")));
         }
-       
-      //Retourne l'ArrayList avec tous les médecins de la base
       return medecins;
     }
     
@@ -142,7 +128,7 @@ public class MedecinDAO {
         try {
             rs = smt.executeQuery("SELECT *  FROM medecin WHERE med_id="+num);
             rs.next();
-            Medecin med = new Medecin(rs.getString("med_nom"), rs.getString("med_prenom"),rs.getString("med_adresse"), rs.getString("med_tel"),rs.getString("med_specialitecomplementaire"),rs.getString("med_departement"));
+            Medecin med = new Medecin(rs.getInt("med_id"),rs.getString("med_nom"), rs.getString("med_prenom"),rs.getString("med_adresse"), rs.getString("med_tel"),rs.getString("med_specialitecomplementaire"),rs.getString("med_departement"));
             //retour = med.toString();
             medecin = med;
             rs.close();    

@@ -6,6 +6,7 @@
 package Modele;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,8 +20,10 @@ public class Rapport {
     private String rap_motif;
     private String rap_bilan;
     private String rap_idVisiteur;
-    private int rap_idMedecin;   
-
+    private int rap_idMedecin;  
+    private Medecin leMedecin; 
+    private ArrayList<Medicament> lesMedicaments = new ArrayList();
+    private Medicament leMedicament = new Medicament();
 
 /**
  * 
@@ -31,46 +34,16 @@ public class Rapport {
  * @param idVisiteur
  * @param idMedecin 
  */
-public Rapport(int id, LocalDate date, String motif, String bilan, String idVisiteur, int idMedecin){
-        this.rap_id = id;
+public Rapport(LocalDate date, String motif, String bilan, String idVisiteur, int idMedecin){
+        //this.rap_id = id;
         this.rap_bilan= bilan;
         this.rap_date= date;
         this.rap_dateStr = String.valueOf(date);
         this.rap_idMedecin= idMedecin;
         this.rap_motif= motif;
-        this.rap_idVisiteur= idVisiteur;
-        
+        this.rap_idVisiteur= idVisiteur;       
 }
 
-/**
- * 
- * @param id
- * @param date
- * @param motif
- * @param bilan
- * @param idVisiteur
- * @param idMedecin 
- */
-public Rapport(int id, String date, String motif, String bilan, String idVisiteur, int idMedecin){
-    this.rap_id = id;
-    this.rap_dateStr = date;
-    this.rap_bilan = bilan;
-    this.rap_idMedecin= idMedecin;
-    this.rap_motif = motif;
-    this.rap_idVisiteur= idVisiteur;
-        
-    
-    String[] ladate = rap_dateStr.split("/");
-        int yy= Integer.parseInt(ladate[0]);
-        int mm=Integer.parseInt(ladate[1]);
-        int dd= Integer.parseInt(ladate[2]);
-        try{
-            rap_date = LocalDate.of(yy, mm, dd);
-        }
-        catch(Exception e){
-            System.out.println("La date n'est pas valide Format yyyy,mm,dd");
-        }
-}
 public Rapport(String motif, String bilan, String idVisiteur, int idMedecin){
     this.rap_bilan = bilan;
     this.rap_motif = motif;
@@ -80,11 +53,76 @@ public Rapport(String motif, String bilan, String idVisiteur, int idMedecin){
 
 /**
  * 
- * @return 
+ * @param id
+ * @param date
+ * @param motif
+ * @param bilan
+ * @param idVisiteur
+ * @param idMedecin 
  */
+
+public Rapport( String date, String motif, String bilan, String idVisiteur, int idMedecin){
+    this.rap_dateStr = date;
+    this.rap_bilan = bilan;
+    this.rap_idMedecin= idMedecin;
+    this.rap_motif = motif;
+    this.rap_idVisiteur= idVisiteur;
+    this.leMedecin = new Medecin();
+        
+    
+    /*String[] ladate = rap_dateStr.split("/");
+        int yy= Integer.parseInt(ladate[0]);
+        int mm=Integer.parseInt(ladate[1]);
+        int dd= Integer.parseInt(ladate[2]);
+        try{
+            rap_date = LocalDate.of(yy, mm, dd);
+        }
+        catch(Exception e){
+            System.out.println("La date n'est pas valide Format yyyy,mm,dd");
+        }*/
+}
+
+public Rapport() {
+}
+
+
+
+    public Medecin getLeMedecin() {
+        return leMedecin;
+    }
+
+    public void setLeMedecin(Medecin leMedecin) {
+        this.leMedecin = leMedecin;
+    }
+
+    public ArrayList<Medicament> getLesMedicaments() {
+        return lesMedicaments;
+    }
+
+    public void setLesMedicaments(ArrayList<Medicament> lesMedicaments) {
+        this.lesMedicaments = lesMedicaments;
+    }
+
+    public Medicament getLeMedicament() {
+        return leMedicament;
+    }
+
+    public void setLeMedicament(Medicament leMedicament) {
+        this.leMedicament = leMedicament;
+    }
+    
+
+
+
     public int getRap_id() {
         return rap_id;
     }
+
+    public void setRap_id(int rap_id) {
+        this.rap_id = rap_id;
+    }
+
+
 
     /**
      * 
@@ -134,13 +172,7 @@ public Rapport(String motif, String bilan, String idVisiteur, int idMedecin){
         return rap_idMedecin;
     }
 
-    /**
-     * 
-     * @param rap_id 
-     */
-    public void setRap_id(int rap_id) {
-        this.rap_id = rap_id;
-    }
+
 
     /**
      * 
@@ -196,6 +228,6 @@ public Rapport(String motif, String bilan, String idVisiteur, int idMedecin){
      */
     @Override
     public String toString() {
-        return "Rapport{" + "rap_id=" + rap_id + ", rap_date=" + rap_date + ", rap_motif=" + rap_motif + ", rap_bilan=" + rap_bilan + ", rap_idVisiteur=" + rap_idVisiteur + ", rap_idMedecin=" + rap_idMedecin + '}';
+        return "Rapport{" + " rap_date=" + rap_date + ", rap_motif=" + rap_motif + ", rap_bilan=" + rap_bilan + ", rap_idVisiteur=" + rap_idVisiteur + ", rap_idMedecin=" + rap_idMedecin + '}';
     }   
 }

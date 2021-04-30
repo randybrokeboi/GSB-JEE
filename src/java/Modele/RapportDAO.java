@@ -32,16 +32,45 @@ public class RapportDAO {
      * 
      * @return
      * @throws SQLException 
+     * @ rapoorts avec les noms des médecins
      */
     public ArrayList<Rapport> getTousRapport() throws SQLException{
         ArrayList<Rapport> listRapport = new ArrayList();
-        rs = smt.executeQuery("select * from rapport");
+        rs = smt.executeQuery("SELECT * FROM rapport");
         while(rs.next()){
             listRapport.add(new Rapport(rs.getInt("rap_id"), convertDateString(rs.getString("rap_date")), rs.getString("rap_motif"), rs.getString("rap_bilan"), rs.getString("rap_idVisiteur"), rs.getInt("rap_idMedecin")));
         }
         return listRapport;
     }
     
+    public Rapport getUnRapport(int num){
+
+        Rapport rapport = new Rapport();
+        try {
+            rs = smt.executeQuery("SELECT *  FROM rapport WHERE rap_id="+num);
+            rs.next();
+            Rapport rap = new Rapport(num, rs.getString("rap_date"), rs.getString("rap_motif"),rs.getString("rap_bilan"), rs.getString("rap_idVisiteur"),rs.getInt("rap_idMedecin"));
+            rapport = rap;
+            rs.close();    
+        }
+         catch (Exception e) {
+            e.printStackTrace();
+        }
+     return rapport;
+    }
+    
+    public Medicament getMedicament(int idRapport) throws SQLException{
+        //ArrayList<Medicament> listMedicaments = new ArrayList();
+        MedicamentDAO mdtDao = new MedicamentDAO();
+        Medicament medicament = new Medicament();
+        rs = smt.executeQuery("SELECT * FROM offrir WHERE off_idRapport = idRapport LIMIT 1");
+        while(rs.next()){
+            //listMedicaments.add(mdtDao.getUnMedicament(rs.getInt("off_idMedicament")));
+            medicament = mdtDao.getUnMedicament(rs.getString("off_idMedicament"));
+
+        }
+        return medicament;
+    }
     /**
      * 
      * @param uneDate
@@ -62,10 +91,22 @@ public class RapportDAO {
      * @param unrapport 
      */
     public void creeRapport(Rapport unrapport) throws SQLException{
-        smt.executeUpdate("insert into rapport values(" + unrapport.getRap_id() + ", '" + convertDateSQL(unrapport.getRap_dateStr()) + "', '" + unrapport.getRap_motif() + "', '" + unrapport.getRap_bilan() + "', '" + unrapport.getRap_idVisiteur() + "', " + unrapport.getRap_idMedecin() + ")");
+        System.out.println("avant");
+        smt.executeUpdate("insert into rapport values(null, '"+ convertDateSQL(unrapport.getRap_dateStr()) + "', '" + unrapport.getRap_motif() + "', '" + unrapport.getRap_bilan() + "', '" + unrapport.getRap_idVisiteur() + "', " + unrapport.getRap_idMedecin() + ")");
+    System.out.println("CREER RAPPORT");
     }
+
+    /*public void creeRapportComplet(Rapport unrapport) throws SQLException{
+        this.creeRapport(unrapport);
+        System.out.println("CREER RAPPORT COMPLET");
+        smt.executeUpdate("insert into offrir values(" + unrapport.getRap_id() + ", '"
+                + leMedicament.getmMdc_id() + "', '" + quantite + "')");
+
+        
+    }*/
     public void creeRapportDateNull(Rapport unrapport) throws SQLException{
         smt.executeUpdate("insert into rapport values(" + unrapport.getRap_id() + ", null , '" + unrapport.getRap_motif() + "', '" + unrapport.getRap_bilan() + "', '" + unrapport.getRap_idVisiteur() + "', " + unrapport.getRap_idMedecin() + ")");
+    System.out.println("CREER RAPPORT DATE");
     }
     
     /**
