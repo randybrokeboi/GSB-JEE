@@ -5,6 +5,8 @@
  */
 package Modele;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,9 +17,25 @@ import java.util.ArrayList;
  * @author GODART
  */
 public class RapportDAO {
+    private Connection CNX = null;
     private Statement smt = null;
     private ResultSet rs = null;
     private Rapport rapport;
+    private PreparedStatement pstm = null;
+    
+    /**
+     * 
+     * @throws SQLException 
+     */
+    
+    private static String nbRapSect = "select count(*) as nbRapSect from rapport inner join visiteur on rap_idVisiteur = vis_id where vis_departement = ? and year(rap_date) = year(NOW())-1";
+    private static String nbRapSectMois = "select count(*) as nbRapSectMois from rapport inner join visiteur on rap_idVisiteur = vis_id where vis_departement = ? and year(rap_date) = year(NOW())-1 and month(rap_date) = ?";
+    private static String nbRapAn = "select count(*) as nbRapAn from rapport where year(rap_date) = ?";
+    private static String nbRapAnMois = "select count(*) as nbRapAnMois from rapport where year(rap_date) = year(NOW())-1 and month(rap_date) = ?";
+    private static String nbRapMoisAn = "select count(*) as nbRapMoisAn from rapport where year(rap_date) = ? and month(rap_date) = ?";
+    private static String listDate = "select distinct year(rap_date) as Annee from rapport order by rap_date";
+    private static String listSect = "select distinct vis_departement from visiteur";
+    private static String annee = "select distinct year(NOW())-1 as AnneeRevolu from rapport";
     
     /**
      * 
@@ -26,6 +44,7 @@ public class RapportDAO {
     public RapportDAO() throws SQLException{
         DAO dao = new DAO();
 	this.smt = dao.getStatement();
+        this.CNX = dao.getConnection();
     }
     
     /**
@@ -146,5 +165,130 @@ public class RapportDAO {
             listMot.add(rs.getString("rap_motif"));
         }
        return listMot; 
+    }
+    
+    public int NbVisit3(String idVisiteur) throws SQLException{
+        int nbVisitRap = 0;
+        rs = smt.executeQuery("select count(rap_id) as num_rap from rapport where year(NOW()) - year(rap_date) <= 3 and  rap_idVisiteur = " + idVisiteur + " order by rap_id");
+        rs.next();
+        nbVisitRap = rs.getInt("num_rap");
+        return nbVisitRap;
+    }
+    
+    public ArrayList<Integer> NbVisitMois(String idVisiteur, int num) throws SQLException{
+        ArrayList<Integer> nbVisitRapM = new ArrayList<>();
+        for(int i = 1; i < 13;i++){
+            rs = smt.executeQuery("select count(rap_id) as num_rap_mois from rapport where year(rap_date) = year(NOW()) - " + num + " and month(rap_date)= " + i + " and  rap_idVisiteur = " +"'"+ idVisiteur +"' "+ " order by rap_id");
+            rs.next();
+            nbVisitRapM.add(rs.getInt("num_rap_mois"));
+        }
+        return nbVisitRapM;
+    }
+    
+    //year(NOW()) - 2019 and month(rap_date)= 10 and  rap_idVisiteur = 'a131'
+    
+    public ArrayList<Integer> NbVisitAnnee(String idVisiteur, int anneeDem) throws SQLException{
+        ArrayList<Integer> nbVisitRapA = new ArrayList<>();
+        for(int i = 1; i < 13;i++){
+            rs = smt.executeQuery("select count(rap_id) as num_rap_mois from rapport where year(rap_date) = " + anneeDem + " and month(rap_date)= " + i + " and  rap_idVisiteur = " +"'"+ idVisiteur +"' "+ " order by rap_id");
+            rs.next();
+            nbVisitRapA.add(rs.getInt("num_rap_mois"));
+        }
+        return nbVisitRapA;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //pour gsbJEE
+    
+    public int getNbRapportSect(int numSect) throws SQLException{
+        int nbRapSect = 0;
+        pstm = CNX.prepareStatement(this.nbRapSect);
+        pstm.setInt(1, numSect);
+        rs = pstm.executeQuery();
+        rs.next();
+        nbRapSect = rs.getInt("nbRapSect");
+        return nbRapSect;
+    }
+    
+    public int getNbRapportSectMois(int numSect, int numMois) throws SQLException{
+        int nbRapSectMois = 0;
+        pstm = CNX.prepareStatement(this.nbRapSectMois);
+        pstm.setInt(1, numSect);
+        pstm.setInt(2, numMois);
+        rs = pstm.executeQuery();
+        rs.next();
+        nbRapSectMois = rs.getInt("nbRapSectMois");
+        return nbRapSectMois;
+    }
+    
+    public int getTousRapportUnAn(int numAnnée) throws SQLException{
+        int nbRapAn = 0;
+        pstm = CNX.prepareStatement(this.nbRapAn);
+        pstm.setInt(1, numAnnée);
+        rs = pstm.executeQuery();
+        rs.next();
+        nbRapAn = rs.getInt("nbRapAn");
+        return nbRapAn;
+    }
+    
+    public int getTousRapportUnAnMois(int numMois) throws SQLException{
+        int nbRapAnMois = 0;
+        pstm = CNX.prepareStatement(this.nbRapAnMois);
+        pstm.setInt(1, numMois);
+        rs = pstm.executeQuery();
+        rs.next();
+        nbRapAnMois = rs.getInt("nbRapAnMois");
+        return nbRapAnMois;
+    }
+    
+    public int getTousRapportMoisAnnee(int numMois, int numAnnee) throws SQLException{
+        int nbRapMoisAn = 0;
+        pstm = CNX.prepareStatement(this.nbRapMoisAn);
+        pstm.setInt(1, numAnnee);
+        pstm.setInt(2, numMois);
+        rs = pstm.executeQuery();
+        rs.next();
+        nbRapMoisAn = rs.getInt("nbRapMoisAn");
+        return nbRapMoisAn;
+    }
+    
+    public ArrayList<Integer> getToutsLesDatesRapport() throws SQLException{
+        ArrayList<Integer> listDate = new ArrayList();
+        pstm = CNX.prepareStatement(this.listDate);
+        rs = pstm.executeQuery();
+        while(rs.next()){
+            listDate.add(rs.getInt("Annee"));
+        }
+        return listDate;
+    }
+    
+    public ArrayList<Integer> getToutsLesSectRapport() throws SQLException{
+        ArrayList<Integer> listSect = new ArrayList();
+        System.out.println("Va envoyé");
+        System.out.println(this.listSect);
+        pstm = CNX.prepareStatement(this.listSect);
+        System.out.println("A envoyé");
+        rs = pstm.executeQuery();
+        while(rs.next()){
+            listSect.add(rs.getInt("vis_departement"));
+        }
+        return listSect;
+    }
+    
+    public int getAnneeRevolu() throws SQLException{
+        int annee = 0;
+        pstm = CNX.prepareStatement(this.annee);
+        rs = pstm.executeQuery();
+        rs.next();
+        annee = rs.getInt(1);
+        return annee;
     }
 }

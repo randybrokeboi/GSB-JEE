@@ -16,8 +16,8 @@ body center img{
   margin-right: auto;
   margin-top: 25vh;;
   position: relative;
-  width: 30%;
-  height:30%;
+  width: 40%;
+  height:40%;
 }
 
 body centerC img table{
@@ -31,24 +31,25 @@ body centerC img table{
 }
 
 .groupe_boutton{
-    width: 200px;
+    width: 15%;
    /* border: 2px solid red;*/
     position: absolute;
-    top:45vh;
-    left: 48.5%;
-    right: auto;
+    top: 43%;
+    left: 47.25%;
   
     
 }
 .groupe_boutton .champ {
      display: block ;
-     margin-bottom: 30px;
-     width: 100%;
+     margin-bottom: 15px;
+     width: 77%;
+     
      padding: 10px;
      border: none;
      /*box-shadow: 2px  2px  2px  2px ;*/     
      text-transform: uppercase;
      font-weight: 900;
+     font-size: 16px;
      background-color: white;
     
 }

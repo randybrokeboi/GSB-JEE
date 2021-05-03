@@ -6,6 +6,7 @@
 
 
 import Modele.VisiteDAO;
+import Modele.Visiteur;
 import java.io.IOException;
 import java.sql.DriverManager;
 import java.io.PrintWriter;
@@ -80,14 +81,12 @@ public class ConnexionS extends HttpServlet {
                 HttpSession session = request.getSession(true);
                 
                 session.setAttribute("visi", visit.creatVisiteur(login));
+                System.out.println("responsable :" + visit.isresp((Visiteur) session.getAttribute("visi")));
                 this.getServletContext().getRequestDispatcher("/WEB-INF/HomeJ.jsp").forward(request, response);
                 
             }
             else{
-                
-                System.out.println("c'est " + Verif);
-                request.setAttribute("info", "");
-                request.setAttribute("rep", "ne concordent avec aucun de ceux present");
+            
                 this.getServletContext().getRequestDispatcher("/WEB-INF/ConnexionJ.jsp").forward(request, response);
             }
             System.out.println("identifiant:: "+login+ " "+mdp);

@@ -130,16 +130,6 @@ public class SaisirS extends HttpServlet {
             int idMedecin =  Integer.parseInt(request.getParameter("idMedecin"));
               System.out.println("medecinnnn"+idMedecin);
             Rapport rapport = new Rapport(date,motif,bilan, visit.getVis_id(),idMedecin);
-            /*String medId1 = (String) request.getAttribute("idMedicament1");
-            int quantite1 = (int) request.getAttribute("quantite1");
-            String medId2 = (String) request.getAttribute("idMedicament2");
-            int quantite2 = (int) request.getAttribute("quantite2");
-            String medId3 = (String) request.getAttribute("idMedicament2");
-            int quantite3 = (int) request.getAttribute("quantite3");*/
-            
-            //ici on ajoute qu'un medicament, mais on peut modifier la méthode creeRapportComplet pour mettre les 3 medicaments choisis
-            //Medicament leMedicament = mdtDAO.getUnMedicament(medId1);
-            //rptDAO.creeRapportComplet(rapport, leMedicament, quantite1);
             rptDAO.creeRapport(rapport);
            
              

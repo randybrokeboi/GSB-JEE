@@ -1,0 +1,90 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.home{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: url(../img/back.svg);
+    background-size: contain;
+}
+
+.home-elem{
+    position: absolute;
+    top: 50%;
+    right: auto;
+    transform: translate(0, -50%);
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.home-elem-left{
+    /*border: 1px solid green;*/
+    width: 250px;
+    height: 420px;
+    left: 5%;
+    transform: translate(-5%, -50%);
+    background: url(../img/graphmenuBack.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 100px;
+}
+
+.home-elem-right{
+    /*border: 1px solid green;*/
+    width: 850px;
+    height: 620px;
+    left: 30%;
+    transform: translate(auto, -50%);
+    background: url(../img/graphback.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.btn-group{
+    /*border: 1px solid red;*/
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.btn-group .btn{
+    display: block;
+    width: 100%;
+    height: 50px;
+    border: none;
+    margin-top: 20px;
+    border-radius: 100px;
+    color: aliceblue;
+    font-size: 16px;
+}
+
+.btn-group .btn-first{
+    background: #9BF6FF;
+}
+
+.btn-group .btn-second{
+    background: #A0C4FF;
+}
+
+.btn-group .btn-third{
+    background: #BDB2FF;
+}
+
+.btn-group .btn-four{
+    background: #FFC6FF;
+}
+
+.btn-group .btn-five{
+    outline: none;
+    border: 1px solid grey;
+    text-align: center;
+}
+
+.btn-group .btn-six{
+    background: #FFC6FF;
+}

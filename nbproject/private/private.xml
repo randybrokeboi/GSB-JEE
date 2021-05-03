@@ -5,10 +5,13 @@
         <group>
             <file>file:/Users/randysemedorodrigues/NetBeansProjects/GSB1/GSB1-war/src/java/Modele/RapportDAO.java</file>
             <file>file:/Users/randysemedorodrigues/NetBeansProjects/GSB1/GSB1-war/src/java/Modele/VisiteDAO.java</file>
+            <file>file:/Users/randysemedorodrigues/NetBeansProjects/GSB1/GSB1-war/src/java/Modele/DAO.java</file>
+            <file>file:/Users/randysemedorodrigues/NetBeansProjects/GSB1/GSB1-war/web/WEB-INF/StatResponsableJ.jsp</file>
+            <file>file:/Users/randysemedorodrigues/NetBeansProjects/GSB1/GSB1-war/src/java/Modele/Visiteur.java</file>
             <file>file:/Users/randysemedorodrigues/NetBeansProjects/GSB1/GSB1-war/src/java/ConnexionS.java</file>
-            <file>file:/Users/randysemedorodrigues/NetBeansProjects/GSB1/GSB1-war/src/java/SaisirS.java</file>
-            <file>file:/Users/randysemedorodrigues/NetBeansProjects/GSB1/GSB1-war/web/WEB-INF/SaisirJ.jsp</file>
             <file>file:/Users/randysemedorodrigues/NetBeansProjects/GSB1/GSB1-war/src/java/HomeS.java</file>
+            <file>file:/Users/randysemedorodrigues/NetBeansProjects/GSB1/GSB1-war/src/java/ServletGraphResponsable.java</file>
+            <file>file:/Users/randysemedorodrigues/NetBeansProjects/GSB1/GSB1-war/src/java/Clt_Responsable.java</file>
             <file>file:/Users/randysemedorodrigues/NetBeansProjects/GSB1/GSB1-war/web/WEB-INF/ConnexionJ.jsp</file>
         </group>
     </open-files>

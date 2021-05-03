@@ -69,7 +69,7 @@ public class VisiteDAO {
             testMdp = rs.getString("vis_mdp");
             System.out.println(" identifiant de la base:  "+testLogin +" "+ testMdp);
             System.out.println("identifiant: "+login+ " "+mdp);
-            System.out.println("Concordent ?: "+(testLogin.equals(login) && testMdp.equals(mdp)));
+            System.out.println("Concordent ? : "+(testLogin.equals(login) && testMdp.equals(mdp)));
             //verifie si le login et le mot de passe corresponde
             if(testLogin.equals(login) && testMdp.equals(mdp)){ 
                 test = true;
@@ -130,4 +130,18 @@ public class VisiteDAO {
             }
             return "00/00/00";
 	}
+    
+    public Boolean isresp(Visiteur visi) throws SQLException{
+        rs = smt.executeQuery("select * from visiteur where vis_id in (select res_id from responsable) and vis_id = '" + visi.getVis_id()+"'");
+        rs = smt.executeQuery("select res_id from responsable");
+        while(rs.next()){
+            //instancie un Lardon pour chaque occurrence du ResultSet
+                if (visi.getVis_id().equals(rs.getString("res_id"))){
+                    return true;
+                }
+            }
+        System.out.println("id = "+ visi.getVis_id());
+        
+        return false;
+    }
 }

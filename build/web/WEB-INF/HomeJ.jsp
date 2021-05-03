@@ -21,9 +21,18 @@
 
             <div class="groupe_boutton">
                 <div id="menu">
-                     <p class="champ saisir_text"><a href="<c:url value="/SaisirS"/>">Saisir</a></p>
-                     <p class="champ modifier_text"><a href="<c:url value="/ModifierS"/>">Modifier</a></p>
-                     <p class="champ consulter_text"><a href="<c:url value="/ConsulterS"/>">Consulter</a></p>
+                     <form method = "get" action ="${pageContext.request.getContextPath()}/SaisirS">
+                        <input type="submit" class="champ consulter_text "  value="Saisir">
+                        </form>
+                     <form method = "get" action ="${pageContext.request.getContextPath()}/ModifierS">
+                        <input type="submit" class="champ consulter_text " value="Modifier">
+                        </form>
+                     <form method = "get" action ="${pageContext.request.getContextPath()}/ConsulterS">
+                        <input type="submit" class="champ consulter_text "  value="Consulter">
+                        </form>
+                     <form method = "get" action ="${pageContext.request.getContextPath()}/ServletGraphResponsable">
+                        <input type="submit" class="champ consulter_text "  value="Statistiques">
+                        </form>
                 </div>
             </div>
         </center>
