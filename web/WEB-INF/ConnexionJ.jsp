@@ -20,9 +20,19 @@
                 </div>
                 <div class="input-group">
                     <input type="text" name="login" class="input input-text">
+                    <span class="popuptext" id="myPopup">Vos identifiants ou mot de passe sont faux!</span>
                     <input type="password" name="mdp" class="input input-password">
                     <input type="submit" class="input input-valider" value="Valider">
+                    <% if(request.getAttribute("statut") != null) {%>
+  
+</div> 
+                <script>
+                var popup = document.getElementById("myPopup");
+                popup.classList.toggle("show");
+              </script> <%}%>
+
                 </div>
             </centre>
+            
         </body>
 </html>

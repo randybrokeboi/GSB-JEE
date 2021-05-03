@@ -10,6 +10,7 @@ import Modele.Visiteur;
 import java.io.IOException;
 import java.sql.DriverManager;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -57,6 +58,8 @@ public class ConnexionS extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        String statut = "";
+        request.setAttribute("statut",statut);
     }
 
     /**
@@ -81,12 +84,14 @@ public class ConnexionS extends HttpServlet {
                 HttpSession session = request.getSession(true);
                 
                 session.setAttribute("visi", visit.creatVisiteur(login));
-                System.out.println("responsable :" + visit.isresp((Visiteur) session.getAttribute("visi")));
+                System.out.println("responsable :" + visit.isresp( (Visiteur) session.getAttribute("visi")));
                 this.getServletContext().getRequestDispatcher("/WEB-INF/HomeJ.jsp").forward(request, response);
                 
             }
             else{
-            
+                
+                String statut = "aaa";
+                request.setAttribute("statut",statut);
                 this.getServletContext().getRequestDispatcher("/WEB-INF/ConnexionJ.jsp").forward(request, response);
             }
             System.out.println("identifiant:: "+login+ " "+mdp);
